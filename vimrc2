@@ -1,0 +1,81 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'nathanaelkane/vim-indent-guides.git'
+Plugin 'vivien/vim-linux-coding-style'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'Rip-Rip/clang_complete'
+Plugin 'kien/ctrlp.vim'
+Plugin 'terryma/vim-smooth-scroll'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'morhetz/gruvbox'
+Plugin 'tpope/vim-fugitive'
+"Plugin 'terryma/vim-expand-region'
+Plugin 'arithran/vim-delete-hidden-buffers'
+"Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
+
+call vundle#end()
+
+filetype plugin indent on
+
+"let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_start_level=2
+"let g:indent_guides_guide_size=1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+autocmd vimenter * NERDTree
+autocmd VimEnter * wincmd p
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+let g:NERDTreeWinSize=28
+
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#disable_refresh = 0
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'deus'
+
+let g:clang_library_path = '/usr/lib/llvm-3.4/lib'
+let g:clang_snippets = 1
+let g:clang_snippets_engine = 'clang_complete'
+let g:clang_close_preview = 1
+let g:clang_auto_select = 1
+let g:clang_complete_optional_args_in_snippets = 1
+let g:clang_trailing_placeholder = 1
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+let g:ctrlp_map = '<c-m>'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:gruvbox_contrast_dark = 'hard'
+
+colorscheme gruvbox
+set background=dark
+set updatetime=250
+set number
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set autoindent
+set clipboard+=unnamed
+map <C-J> :bprev<CR>
+map <C-K> :bnext<CR>
+set encoding=utf-8
